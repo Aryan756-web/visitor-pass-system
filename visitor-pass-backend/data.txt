@@ -1,0 +1,9 @@
+"appointmentId": "69cbaa44e62b6fbabbe61952"
+
+pass id 69cbb0e4bd53a63f6e2af93c
+
+"visitor": "69ca66a5c71ee5a63b5aed87"
+
+token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5Y2EwZWY2MGNiMGFiOTczMmYzNTgyYyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NDk1MjU3OSwiZXhwIjoxNzc1MDM4OTc5fQ.y1vYy6Xr2q5DMjwZMKnStzOC-n-JbiGAcQuaWq8kApc
+
+{"message":"Checked in","log":{"pass":"69cbb0e4bd53a63f6e2af93c","checkInTime":"2026-03-31T12:14:49.742Z","_id":"69cbbab96d491bc4ec906df8","createdAt":"2026-03-31T12:14:49.742Z","updatedAt":"2026-03-31T12:14:49.742Z","__v":0}}
