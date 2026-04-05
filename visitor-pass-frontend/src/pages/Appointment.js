@@ -13,15 +13,15 @@ function Appointment() {
   useEffect(() => {
     const fetchVisitors = async () => {
       try {
-        const res = await axios.get("https://visitor-pass-system-e29h.onrender.com/api/visitors", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
+        const res = await axios.get(
+          "https://visitor-pass-system-e29h.onrender.com/api/visitors",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setVisitors(res.data);
       } catch (error) {
-        console.log(error);
+        console.log("Error fetching visitors");
       }
     };
 
@@ -30,69 +30,64 @@ function Appointment() {
 
   // CREATE APPOINTMENT
   const createAppointment = async () => {
+    if (!visitorId || !date) {
+      alert("Please select visitor and date");
+      return;
+    }
+
     try {
       await axios.post(
         "https://visitor-pass-system-e29h.onrender.com/api/appointments",
         {
           visitor: visitorId,
-          date: date,
+          date,
         },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       alert("Appointment created");
+      fetchAppointments(); // refresh
     } catch (error) {
-      console.log(error.response?.data || error.message);
-      console.log("FULL ERROR:", error);
-      console.log("BACKEND ERROR:", error.response?.data);
-
       alert(error.response?.data?.message || "Error creating appointment");
     }
   };
 
+  // GET APPOINTMENTS
+  const fetchAppointments = async () => {
+    try {
+      const res = await axios.get(
+        "https://visitor-pass-system-e29h.onrender.com/api/appointments",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setAppointments(res.data);
+    } catch (error) {
+      console.log("Error fetching appointments");
+    }
+  };
+
   useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const res = await axios.get(
-          "https://visitor-pass-system-e29h.onrender.com/api/appointments",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        setAppointments(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     fetchAppointments();
   }, [token]);
 
+  // APPROVE
   const approveAppointment = async (id) => {
     try {
       await axios.put(
         `https://visitor-pass-system-e29h.onrender.com/api/appointments/${id}/approve`,
         { status: "approved" },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       alert("Approved");
-
-      // refresh list
-      window.location.reload();
+      fetchAppointments(); // no reload
     } catch (error) {
-      console.log(error.response?.data || error.message);
       alert("Error approving");
     }
   };
@@ -102,7 +97,7 @@ function Appointment() {
       <h2>Create Appointment</h2>
 
       <select onChange={(e) => setVisitorId(e.target.value)}>
-        <option>Select Visitor</option>
+        <option value="">Select Visitor</option>
         {visitors.map((v) => (
           <option key={v._id} value={v._id}>
             {v.name}
@@ -123,9 +118,13 @@ function Appointment() {
       <ul>
         {appointments.map((a) => (
           <li key={a._id}>
-            {a.visitor?.name} - {new Date(a.date).toLocaleString()} - {a.status}
+            {a.visitor?.name} -{" "}
+            {new Date(a.date).toLocaleString()} - {a.status}
+
             {a.status !== "approved" && (
-              <button onClick={() => approveAppointment(a._id)}>Approve</button>
+              <button onClick={() => approveAppointment(a._id)}>
+                Approve
+              </button>
             )}
           </li>
         ))}

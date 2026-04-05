@@ -6,23 +6,23 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const loginUser = async () => {
+    if (!email || !password) {
+      alert("Enter email and password");
+      return;
+    }
+
     try {
       const res = await axios.post(
         "https://visitor-pass-system-e29h.onrender.com/api/auth/login",
-        {
-          email,
-          password
-        }
+        { email, password }
       );
 
-      // save token
       localStorage.setItem("token", res.data.token);
-
       alert("Login successful");
 
+      window.location.reload(); // IMPORTANT
     } catch (error) {
-      console.log(error);
-      alert("Login failed");
+      alert(error.response?.data?.message || "Login failed");
     }
   };
 

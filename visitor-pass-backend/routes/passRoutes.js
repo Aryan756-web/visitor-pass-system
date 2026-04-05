@@ -1,14 +1,13 @@
 const express = require("express");
-const { generatePass } = require("../controllers/passController");
+const { generatePass, getPasses } = require("../controllers/passController");
 const protect = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.get("/", protect, async (req, res) => {
-  const passes = await require("../models/Pass").find();
-  res.json(passes);
-});
+// get all passes
+router.get("/", protect, getPasses);
 
+// generate pass
 router.post("/", protect, generatePass);
 
 module.exports = router;

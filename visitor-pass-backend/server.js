@@ -11,6 +11,12 @@ const passRoutes = require("./routes/passRoutes");
 const checkRoutes = require("./routes/checkRoutes");
 
 dotenv.config();
+
+if (!process.env.JWT_SECRET || !process.env.MONGO_URI) {
+  console.error("Missing required environment variables");
+  process.exit(1);
+}
+
 connectDB();
 
 const app = express();

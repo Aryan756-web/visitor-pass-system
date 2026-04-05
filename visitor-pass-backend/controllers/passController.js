@@ -1,43 +1,62 @@
-const Pass = require("../models/Pass")
+const Pass = require("../models/Pass");
 const Appointment = require("../models/Appointment");
 const QRCode = require("qrcode");
+const mongoose = require("mongoose");
 
-//generate pass
+// generate pass
 const generatePass = async (req, res) => {
-    try{
-        const { appointmentId } = req.body;
-        
-        //find appointment
-        const appointment = await Appointment.findById(appointmentId);
+  try {
+    const { appointmentId } = req.body;
 
-        if (!appointment || appointment.status !== "approved") {
-            return res.status(400).json({ message: "Appointment Not Approved"})
-        }
+    if (!appointmentId) {
+      return res.status(400).json({ message: "Appointment ID is required" });
+    }
 
-        //generate QR data (simple)
-        const qrData = `PASS-${appointment._id}`;
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ message: "Invalid appointment ID" });
+    }
 
-        const qrCode = await QRCode.toDataURL(qrData);
+    const appointment = await Appointment.findById(appointmentId);
 
-        //create pass
-        const pass = new Pass({
-        visitor: appointment.visitor,
-        appointment: appointment._id,
-        qrCode,
-        validFrom: new Date(),
-        vailtTo: new Date(Date.now() + 2 * 60 * 60 * 1000) // 2 hours
-        });
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
 
-        await pass.save();
+    if (appointment.status !== "approved") {
+      return res.status(400).json({ message: "Appointment is not approved" });
+    }
 
-        res.json({
-            message: "Pass generated",
-            pass 
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Server error" });
+    const qrData = `PASS-${appointment._id}`;
+    const qrCode = await QRCode.toDataURL(qrData);
+
+    const pass = new Pass({
+      visitor: appointment.visitor,
+      appointment: appointment._id,
+      qrCode,
+      validFrom: new Date(),
+      validTo: new Date(Date.now() + 2 * 60 * 60 * 1000),
+    });
+
+    await pass.save();
+
+    res.json({
+      message: "Pass generated successfully",
+      pass,
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Error generating pass" });
   }
 };
 
-module.exports = { generatePass };
+// ✅ NEW FUNCTION (THIS FIXES YOUR MISTAKE)
+const getPasses = async (req, res) => {
+  try {
+    const passes = await Pass.find();
+    res.json(passes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching passes" });
+  }
+};
+
+module.exports = { generatePass, getPasses };

@@ -5,18 +5,20 @@ import Appointment from "./pages/Appointment";
 function App() {
   const token = localStorage.getItem("token");
 
- return (
-  <div>
-    {token ? (
-      <>
-        <Visitor />
-        <Appointment />
-      </>
-    ) : (
-      <Login />
-    )}
-  </div>
-);
+  return (
+    <div>
+      <h1>Visitor Pass System</h1>
+
+      {token ? (
+        <>
+          <Visitor />
+          <Appointment />
+        </>
+      ) : (
+        <Login />
+      )}
+    </div>
+  );
 }
 
 export default App;

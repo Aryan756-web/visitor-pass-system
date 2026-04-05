@@ -6,61 +6,66 @@ function Visitor() {
   const [email, setEmail] = useState("");
   const [visitors, setVisitors] = useState([]);
 
-  const addVisitor = async () => {
-    try {
-      const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
+  const fetchVisitors = async () => {
+    try {
+      const res = await axios.get(
+        "https://visitor-pass-system-e29h.onrender.com/api/visitors",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setVisitors(res.data);
+    } catch (error) {
+      console.log("Error fetching visitors");
+    }
+  };
+
+  const addVisitor = async () => {
+    if (!name || !email) {
+      alert("Name and email required");
+      return;
+    }
+
+    try {
       await axios.post(
-        "http://localhost:5000/api/visitors",
+        "https://visitor-pass-system-e29h.onrender.com/api/visitors",
         { name, email },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       alert("Visitor added");
-      fetchVisitors(); 
-
+      setName("");
+      setEmail("");
+      fetchVisitors();
     } catch (error) {
-      console.log(error.response?.data || error.message);
       alert(error.response?.data?.message || "Error adding visitor");
     }
   };
 
-const fetchVisitors = async () => {
-  try {
-    const token = localStorage.getItem("token");
-
-    const res = await axios.get(
-      "https://visitor-pass-system-e29h.onrender.com/api/visitors",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    console.log("VISITORS:", res.data);
-    setVisitors(res.data);
-
-  } catch (error) {
-    console.log(error.response?.data || error.message);
-  }
-};
-
-useEffect(() => {
-  fetchVisitors();
-}, []);
+  useEffect(() => {
+    fetchVisitors();
+  }, []);
 
   return (
     <div>
       <h2>Add Visitor</h2>
 
-      <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
+      <input
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
 
-      <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+      <input
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
       <button onClick={addVisitor}>Add Visitor</button>
 
