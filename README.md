@@ -1,101 +1,79 @@
-# Visitor Pass System
+# Visitor Pass System (MERN Stack)
 
-This is a MERN stack based project where users can register, log in, create appointments and generate visitor passes. The main idea is to simulate a basic visitor management system where a host can approve appointments and passes can be generated for entry.
+This project is a simple visitor management system where users can register, log in, create appointments, and generate visitor passes with QR codes.
 
-## Features
+It is built using Node.js, Express, MongoDB, and React.
 
-* User registration and login (JWT based authentication)
-* Create appointment for visitors
-* Approve or update appointment status
-* Generate visitor pass with QR code
-* View all appointments and passes
+---
 
-## Tech Stack
+## Project Structure
 
-* Backend: Node.js, Express
-* Database: MongoDB
-* Frontend: React
-* Authentication: JWT
+visitor-pass-system/
 
-## Folder Structure
+backend/ → Express backend (API, authentication, database)
+frontend/ → React frontend (UI, forms, API integration)
+README.md
+.env.example
 
-* `/backend` → contains all server-side code (routes, controllers, models)
-* `/frontend` → React app
-* `.env.example` → environment variables reference
+---
 
-## Setup Instructions
+## Backend Setup
 
-### 1. Clone the repository
-
-```
-git clone <your-repo-link>
-cd visitor-pass-system
-```
-
-### 2. Setup backend
-
-```
 cd backend
 npm install
-```
 
-Create a `.env` file inside backend folder and add:
+Create a `.env` file inside backend:
 
-```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-```
 
 Run backend:
 
-```
-npm run dev
-```
+npm start
 
-### 3. Setup frontend
+---
 
-The React frontend is included in the `/frontend` folder.
-
-To run it:
+## Frontend Setup
 
 cd frontend
 npm install
 npm start
 
-The frontend is connected to the backend API for authentication, appointments, and pass generation.
+---
 
+## API Endpoints
 
-## API Routes (basic)
+Auth:
+POST /api/auth/register
+POST /api/auth/login
 
-### Auth
+Appointments:
+POST /api/appointments
+GET /api/appointments
+PUT /api/appointments/:id
+PUT /api/appointments/:id/approve
 
-* POST /api/auth/register → register user
-* POST /api/auth/login → login user
-
-### Appointments
-
-* POST /api/appointments → create appointment
-* GET /api/appointments → get all appointments
-* PUT /api/appointments/:id → update status
-* PUT /api/appointments/:id/approve → approve appointment
-
-### Pass
-
-* POST /api/pass → generate pass
-* GET /api/pass → get all passes
-
-## Notes
-
-* Some validations are basic and can be improved
-* This project is for learning purpose
-* QR code is generated using appointment ID
-
-## Deployment
-
-* Backend deployed on Render
-* Frontend deployed on Netlify
+Pass:
+POST /api/pass
+GET /api/pass
 
 ---
 
-That's it. This is a simple implementation of a visitor pass system using MERN stack.
+## Notes
+
+* Backend entry point is: backend/server.js
+* Frontend is located in the frontend folder
+* JWT is used for authentication
+* QR codes are generated for passes
+
+---
+
+## Deployment
+
+Backend: Render
+Frontend: Netlify
+
+---
+
+This is a basic implementation for learning purposes.
