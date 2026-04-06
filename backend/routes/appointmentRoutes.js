@@ -8,12 +8,19 @@ const {
 
 const protect = require("../middleware/authMiddleware");
 const { validateAppointment } = require("../middleware/validationMiddleware");
+
 const router = express.Router();
 
-router.post("/", protect, createAppointment);
-router.get("/", protect, getAppointments);
-router.put("/:id", protect, updateStatus);
-router.put("/:id/approve", protect, approveAppointment);
+// create
 router.post("/", protect, validateAppointment, createAppointment);
+
+// get all
+router.get("/", protect, getAppointments);
+
+// update status
+router.put("/:id", protect, updateStatus);
+
+// approve
+router.put("/:id/approve", protect, approveAppointment);
 
 module.exports = router;
