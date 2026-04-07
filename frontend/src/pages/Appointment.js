@@ -113,11 +113,30 @@ function Appointment() {
     }
   };
 
-  const downloadPDF = (passId) => {
-    window.open(
-      `https://visitor-pass-system-1.onrender.com/api/pass/pdf/${passId}`,
-      "_blank",
-    );
+  const downloadPDF = async (passId) => {
+    try {
+      const res = await axios.get(
+        `https://visitor-pass-system-1.onrender.com/api/pass/pdf/${passId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          responseType: "blob",
+        },
+      );
+
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.setAttribute("download", "visitor_pass.pdf");
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      alert("error downloading pdf");
+    }
   };
 
   return (
