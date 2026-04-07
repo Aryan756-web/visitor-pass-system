@@ -115,7 +115,7 @@ function Appointment() {
 
   const downloadPDF = (passId) => {
     window.open(
-      `https://visitor-pass-system-e29h.onrender.com/api/pass/pdf/${passId}`,
+      `https://visitor-pass-system-1.onrender.com/api/pass/pdf/${passId}`,
       "_blank",
     );
   };
