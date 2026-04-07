@@ -18,7 +18,7 @@ function Appointment() {
         "https://visitor-pass-system-1.onrender.com/api/visitors",
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       setVisitors(res.data);
     } catch (err) {
@@ -32,9 +32,9 @@ function Appointment() {
         "https://visitor-pass-system-1.onrender.com/api/appointments",
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
-      setAppointments(res.data);
+      setAppointments(res.data.appointments || res.data);
     } catch (err) {
       console.log("error");
     }
@@ -57,7 +57,7 @@ function Appointment() {
         { visitor: visitorId, date },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
 
       setDate("");
@@ -75,7 +75,7 @@ function Appointment() {
         { status: "approved" },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       fetchAppointments();
     } catch (err) {
@@ -89,11 +89,36 @@ function Appointment() {
 
     const matchSearch = name.includes(search.toLowerCase());
 
-    const matchStatus =
-      statusFilter === "all" || a.status === statusFilter;
+    const matchStatus = statusFilter === "all" || a.status === statusFilter;
 
     return matchSearch && matchStatus;
   });
+
+  const generatePass = async (appointmentId) => {
+    try {
+      const res = await axios.post(
+        "https://visitor-pass-system-1.onrender.com/api/pass",
+        { appointmentId },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      alert("Pass generated");
+
+      // store pass id inside appointment temporarily
+      fetchAppointments();
+    } catch (err) {
+      alert("error generating pass");
+    }
+  };
+
+  const downloadPDF = (passId) => {
+    window.open(
+      `https://visitor-pass-system-e29h.onrender.com/api/pass/pdf/${passId}`,
+      "_blank",
+    );
+  };
 
   return (
     <div>
@@ -153,6 +178,18 @@ function Appointment() {
                 {a.status !== "approved" && (
                   <button onClick={() => approveAppointment(a._id)}>
                     Approve
+                  </button>
+                )}
+
+                {a.status === "approved" && (
+                  <button onClick={() => generatePass(a._id)}>
+                    Generate Pass
+                  </button>
+                )}
+
+                {a.pass && (
+                  <button onClick={() => downloadPDF(a.pass)}>
+                    Download PDF
                   </button>
                 )}
               </td>
