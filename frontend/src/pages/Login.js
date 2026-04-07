@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const loginUser = async () => {
     if (!email || !password) {
@@ -13,14 +15,14 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "https://visitor-pass-system-e29h.onrender.com/api/auth/login",
-        { email, password }
+        "https://visitor-pass-system-1.onrender.com/api/auth/login",
+        { email, password },
       );
 
       localStorage.setItem("token", res.data.token);
       alert("Login successful");
 
-      window.location.reload(); // IMPORTANT
+      navigate("/visitors");
     } catch (error) {
       alert(error.response?.data?.message || "Login failed");
     }
@@ -32,12 +34,14 @@ function Login() {
 
       <input
         placeholder="Email"
+        value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
 
       <input
         placeholder="Password"
         type="password"
+        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 

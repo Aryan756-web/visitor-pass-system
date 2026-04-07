@@ -2,6 +2,7 @@ const Pass = require("../models/Pass");
 const Appointment = require("../models/Appointment");
 const QRCode = require("qrcode");
 const mongoose = require("mongoose");
+const PDFDocument = require("pdfkit");
 
 // generate pass
 const generatePass = async (req, res) => {
@@ -75,4 +76,48 @@ const getPasses = async (req, res) => {
   }
 };
 
-module.exports = { generatePass, getPasses };
+const downloadPassPDF = async (req, res) => {
+  try {
+    const pass = await Pass.findById(req.params.id).populate("visitor");
+
+    if (!pass) {
+      return res.status(404).json({ message: "Pass not found" });
+    }
+
+    const doc = new PDFDocument();
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=pass_${pass._id}.pdf`
+    );
+
+    doc.pipe(res);
+
+    doc.fontSize(20).text("Visitor Pass", { align: "center" });
+
+    doc.moveDown();
+    doc.fontSize(14).text(`Name: ${pass.visitor}`);
+    doc.text(`Pass ID: ${pass._id}`);
+    doc.text(`Valid From: ${new Date(pass.validFrom).toLocaleString()}`);
+    doc.text(`Valid To: ${new Date(pass.validTo).toLocaleString()}`);
+
+    doc.moveDown();
+
+    if (pass.qrCode) {
+      const base64Data = pass.qrCode.replace(/^data:image\/png;base64,/, "");
+      const imgBuffer = Buffer.from(base64Data, "base64");
+
+      doc.image(imgBuffer, {
+        fit: [150, 150],
+        align: "center",
+      });
+    }
+
+    doc.end();
+  } catch (err) {
+    console.log("PDF error:", err.message);
+    res.status(500).json({ message: "Error generating PDF" });
+  }
+};
+module.exports = { generatePass, getPasses, downloadPassPDF };

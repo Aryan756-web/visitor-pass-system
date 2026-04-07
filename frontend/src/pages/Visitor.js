@@ -11,39 +11,55 @@ function Visitor() {
   const fetchVisitors = async () => {
     try {
       const res = await axios.get(
-        "https://visitor-pass-system-e29h.onrender.com/api/visitors",
+        "https://visitor-pass-system-1.onrender.com/api/visitors",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
       setVisitors(res.data);
     } catch (error) {
-      console.log("Error fetching visitors");
+      console.log("error");
     }
   };
 
   const addVisitor = async () => {
     if (!name || !email) {
-      alert("Name and email required");
+      alert("enter details");
       return;
     }
 
     try {
       await axios.post(
-        "https://visitor-pass-system-e29h.onrender.com/api/visitors",
+        "https://visitor-pass-system-1.onrender.com/api/visitors",
         { name, email },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      alert("Visitor added");
       setName("");
       setEmail("");
       fetchVisitors();
     } catch (error) {
-      alert(error.response?.data?.message || "Error adding visitor");
+      alert("error");
+    }
+  };
+
+  const deleteVisitor = async (id) => {
+    if (!window.confirm("delete this visitor?")) return;
+
+    try {
+      await axios.delete(
+        `https://visitor-pass-system-1.onrender.com/api/visitors/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      fetchVisitors();
+    } catch (error) {
+      alert(error.response?.data?.message || "error deleting");
+console.log(error.response);
     }
   };
 
@@ -69,13 +85,31 @@ function Visitor() {
 
       <button onClick={addVisitor}>Add Visitor</button>
 
-      <ul>
-        {visitors.map((v) => (
-          <li key={v._id}>
-            {v.name} - {v.email}
-          </li>
-        ))}
-      </ul>
+      <h3>Visitors</h3>
+
+      <table border="1" cellPadding="8" style={{ marginTop: "10px" }}>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {visitors.map((v) => (
+            <tr key={v._id}>
+              <td>{v.name}</td>
+              <td>{v.email}</td>
+              <td>
+                <button onClick={() => deleteVisitor(v._id)}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
