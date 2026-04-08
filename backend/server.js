@@ -1,12 +1,15 @@
 console.log("MONGO:", process.env.MONGO_URI ? "OK" : "MISSING");
 console.log("JWT:", process.env.JWT_SECRET ? "OK" : "MISSING");
 
+
+const express = require("express");
+
 app.use((req, res, next) => {
   console.log("Incoming:", req.method, req.url);
   next();
 });
 
-const express = require("express");
+
 const dotenv = require("dotenv");
 const cors = require("cors");
 const morgan = require("morgan");
