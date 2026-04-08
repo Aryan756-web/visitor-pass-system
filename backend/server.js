@@ -1,5 +1,11 @@
 console.log("MONGO:", process.env.MONGO_URI ? "OK" : "MISSING");
 console.log("JWT:", process.env.JWT_SECRET ? "OK" : "MISSING");
+
+app.use((req, res, next) => {
+  console.log("Incoming:", req.method, req.url);
+  next();
+});
+
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -26,7 +32,11 @@ if (!process.env.MONGO_URI || !process.env.JWT_SECRET) {
 }
 
 // connect DB
-connectDB();
+try {
+  connectDB();
+} catch (err) {
+  console.log("DB FAILED:", err.message);
+}
 
 const app = express();
 
@@ -44,7 +54,8 @@ app.use("/api/check", checkRoutes);
 
 // test route
 app.get("/", (req, res) => {
-  res.send("API is running...");
+  console.log("ROOT HIT");
+  res.status(200).send("API WORKING FINAL");
 });
 
 // protected route
@@ -69,4 +80,12 @@ console.log("PORT FROM RENDER:", process.env.PORT);
 // start server
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
+});
+
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT:", err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED:", err);
 });
