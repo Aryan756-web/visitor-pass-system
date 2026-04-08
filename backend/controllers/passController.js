@@ -14,6 +14,7 @@ const generatePass = async (req, res) => {
   }
 
   try {
+    console.log("Generating pass...");
     if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
       return res.status(400).json({ message: "Invalid id" });
     }
@@ -45,9 +46,11 @@ const generatePass = async (req, res) => {
     });
 
     await pass.save();
+    console.log("Sending email to:", appointment.visitor.email);
+    console.log("Visitor object:", appointment.visitor);
 
     await sendEmail(
-      pass.visitor.email,
+      appointment.visitor.email,
       "Visitor Pass Generated",
       `Your pass has been created. Pass ID: ${pass._id}`,
     );

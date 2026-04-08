@@ -11,7 +11,7 @@ function Visitor() {
   const fetchVisitors = async () => {
     try {
       const res = await axios.get(
-        "https://visitor-pass-system-1.onrender.com/api/visitors",
+        "http://localhost:5000/api/visitors",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -30,7 +30,7 @@ function Visitor() {
 
     try {
       await axios.post(
-        "https://visitor-pass-system-1.onrender.com/api/visitors",
+        "http://localhost:5000/api/visitors",
         { name, email },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -50,7 +50,7 @@ function Visitor() {
 
     try {
       await axios.delete(
-        `https://visitor-pass-system-1.onrender.com/api/visitors/${id}`,
+        `http://localhost:5000/api/visitors/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
