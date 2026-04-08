@@ -7,26 +7,30 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const loginUser = async () => {
-    if (!email || !password) {
-      alert("Enter email and password");
-      return;
-    }
+const loginUser = async () => {
+  if (!email || !password) {
+    alert("Enter email and password");
+    return;
+  }
 
-    try {
-      const res = await axios.post(
-        "https://visitor-pass-system-1.onrender.com/api/auth/login",
-        { email, password },
-      );
+  try {
+    const res = await axios.post(
+      "https://visitor-pass-system-1.onrender.com/api/auth/login",
+      { email, password }
+    );
 
-      localStorage.setItem("token", res.data.token);
-      alert("Login successful");
+    console.log(res.data);
 
-      navigate("/visitors");
-    } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
-    }
-  };
+    localStorage.setItem("token", res.data.token);
+
+    alert("Login successful");
+
+    navigate("/visitors");
+
+  } catch (error) {
+    alert(error.response?.data?.message || "Login failed");
+  }
+};
 
   return (
     <div>
