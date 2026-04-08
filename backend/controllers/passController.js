@@ -49,13 +49,11 @@ const generatePass = async (req, res) => {
       pass,
       message: "Pass created",
     });
-
   } catch (err) {
     console.log("Pass error:", err.message);
     res.status(500).json({ message: "Could not generate pass" });
   }
 };
-
 
 // get all passes
 const getPasses = async (req, res) => {
@@ -70,7 +68,6 @@ const getPasses = async (req, res) => {
       count: passes.length,
       passes,
     });
-
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch passes" });
   }
@@ -89,7 +86,7 @@ const downloadPassPDF = async (req, res) => {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename=pass_${pass._id}.pdf`
+      `attachment; filename=pass_${pass._id}.pdf`,
     );
 
     doc.pipe(res);
@@ -97,7 +94,8 @@ const downloadPassPDF = async (req, res) => {
     doc.fontSize(20).text("Visitor Pass", { align: "center" });
 
     doc.moveDown();
-    doc.fontSize(14).text(`Name: ${pass.visitor}`);
+    doc.fontSize(14).text(`Name: ${pass.visitor.name}`);
+    doc.text(`Email: ${pass.visitor.email}`);
     doc.text(`Pass ID: ${pass._id}`);
     doc.text(`Valid From: ${new Date(pass.validFrom).toLocaleString()}`);
     doc.text(`Valid To: ${new Date(pass.validTo).toLocaleString()}`);
