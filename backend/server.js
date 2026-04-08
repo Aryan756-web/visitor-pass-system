@@ -63,7 +63,8 @@ app.get("/api/admin", protect, authorizeRoles("admin"), (req, res) => {
 // error handler (must be last)
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
+console.log("PORT FROM RENDER:", process.env.PORT);
 
 // start server
 app.listen(PORT, "0.0.0.0", () => {
