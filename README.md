@@ -1,48 +1,68 @@
-# Visitor Pass System (MERN Stack)
+# Visitor Pass Management System
 
-This project is a simple visitor management system where users can register, log in, create appointments, and generate visitor passes with QR codes.
+This is a full-stack MERN project where visitors can be registered, appointments can be created, and passes can be generated after approval.
 
-It is built using Node.js, Express, MongoDB, and React.
-
----
-
-## Project Structure
-
-visitor-pass-system/
-
-backend/ → Express backend (API, authentication, database)
-frontend/ → React frontend (UI, forms, API integration)
-README.md
-.env.example
+The system also supports QR code generation, PDF pass download, and email notifications.
 
 ---
 
-## Backend Setup
+## 🚀 Features
 
+- User Login (JWT based)
+- Add / View / Delete Visitors
+- Create Appointments
+- Approve Appointments
+- Generate Visitor Pass
+- QR Code for each pass
+- Download Pass as PDF
+- Email Notification (using Ethereal for testing)
+- Basic Dashboard with search and filter
+
+---
+
+## 🛠 Tech Stack
+
+Frontend:
+- React
+- Axios
+
+Backend:
+- Node.js
+- Express.js
+
+Database:
+- MongoDB
+
+Other:
+- JWT Authentication
+- PDFKit (for PDF generation)
+- QRCode
+- Nodemailer (Ethereal)
+
+---
+
+## 🌐 Live Links
+
+Frontend:
+https://visitor-pass-frontend-backend.netlify.app/
+
+Backend:
+https://visitor-pass-system-1.onrender.com/
+
+---
+
+## ⚙️ How to Run Locally
+
+### Backend
+
+bash
 cd backend
 npm install
-
-Create a `.env` file inside backend:
-
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-
-Run backend:
-
 npm start
 
 ---
 
-## Frontend Setup
-
-cd frontend
-npm install
-npm start
-
----
-
-## API Endpoints
+### API Endpoints
 
 Auth:
 POST /api/auth/register
@@ -57,23 +77,5 @@ PUT /api/appointments/:id/approve
 Pass:
 POST /api/pass
 GET /api/pass
-
----
-
-## Notes
-
-* Backend entry point is: backend/server.js
-* Frontend is located in the frontend folder
-* JWT is used for authentication
-* QR codes are generated for passes
-
----
-
-## Deployment
-
-Backend: Render
-Frontend: Netlify
-
----
 
 This is a basic implementation for learning purposes.

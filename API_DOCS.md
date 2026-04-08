@@ -33,6 +33,29 @@ GET /api/pass
 
 ---
 
+
+---
+
+# API Documentation - Visitor Pass System
+
+Base URL:
+http://localhost:5000/api
+
+---
+
+## 🔐 Auth
+
+### Login
+
+POST /auth/login
+
+Body:
+```json
+{
+  "email": "test@example.com",
+  "password": "123456"
+}
+
 ## Notes
 
 * Most routes require authentication

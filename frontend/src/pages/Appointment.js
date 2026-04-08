@@ -15,7 +15,7 @@ function Appointment() {
   const fetchVisitors = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/visitors",
+        "https://visitor-pass-system-1.onrender.com/api/visitors",
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -29,7 +29,7 @@ function Appointment() {
   const fetchAppointments = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/appointments",
+        "https://visitor-pass-system-1.onrender.com/api/appointments",
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -53,7 +53,7 @@ function Appointment() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/appointments",
+        "https://visitor-pass-system-1.onrender.com/api/appointments",
         { visitor: visitorId, date },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -71,7 +71,7 @@ function Appointment() {
   const approveAppointment = async (id) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/appointments/${id}/approve`,
+        `https://visitor-pass-system-1.onrender.com/api/appointments/${id}/approve`,
         { status: "approved" },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -97,7 +97,7 @@ function Appointment() {
   const generatePass = async (appointmentId) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/pass",
+        "https://visitor-pass-system-1.onrender.com/api/pass",
         { appointmentId },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -116,7 +116,7 @@ function Appointment() {
   const downloadPDF = async (passId) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/pass/pdf/${passId}`,
+        `https://visitor-pass-system-1.onrender.com/api/pass/pdf/${passId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
