@@ -3,6 +3,7 @@ const Appointment = require("../models/Appointment");
 const QRCode = require("qrcode");
 const mongoose = require("mongoose");
 const PDFDocument = require("pdfkit");
+const sendEmail = require("../utils/sendEmail");
 
 // generate pass
 const generatePass = async (req, res) => {
@@ -17,7 +18,7 @@ const generatePass = async (req, res) => {
       return res.status(400).json({ message: "Invalid id" });
     }
 
-    const appointment = await Appointment.findById(appointmentId);
+    const appointment = await Appointment.findById(appointmentId).populate("visitor");
 
     if (!appointment) {
       return res.status(404).json({ message: "Appointment not found" });
@@ -44,6 +45,12 @@ const generatePass = async (req, res) => {
     });
 
     await pass.save();
+
+    await sendEmail(
+      pass.visitor.email,
+      "Visitor Pass Generated",
+      `Your pass has been created. Pass ID: ${pass._id}`,
+    );
 
     res.json({
       pass,
