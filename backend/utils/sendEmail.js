@@ -1,3 +1,4 @@
+console.log("sendEmail function triggered");
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (to, subject, text) => {

@@ -25,7 +25,7 @@ const loginUser = async () => {
 
     alert("Login successful");
 
-    navigate("/visitors");
+    window.location.href = "/visitors";
 
   } catch (error) {
     alert(error.response?.data?.message || "Login failed");

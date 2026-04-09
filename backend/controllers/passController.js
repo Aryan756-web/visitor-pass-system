@@ -49,11 +49,12 @@ const generatePass = async (req, res) => {
     console.log("Sending email to:", appointment.visitor.email);
     console.log("Visitor object:", appointment.visitor);
 
-    // await sendEmail(
-    //   appointment.visitor.email,
-    //   "Visitor Pass Generated",
-    //   `Your pass has been created. Pass ID: ${pass._id}`,
-    // );
+    console.log("About to send email...");
+    await sendEmail(
+      appointment.visitor.email,
+      "Visitor Pass Generated",
+      `Your pass has been created. Pass ID: ${pass._id}`,
+    );
 
     res.json({
       pass,
