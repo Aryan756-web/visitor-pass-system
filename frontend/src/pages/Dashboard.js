@@ -30,7 +30,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchStats();
-  }, []);
+  }, [token]);
 
   return (
     <div style={{ padding: "20px" }}>

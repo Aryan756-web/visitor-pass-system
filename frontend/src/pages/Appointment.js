@@ -43,7 +43,7 @@ function Appointment() {
   useEffect(() => {
     fetchVisitors();
     fetchAppointments();
-  }, []);
+  }, [token]);
 
   const createAppointment = async () => {
     if (!visitorId || !date) {
@@ -96,7 +96,7 @@ function Appointment() {
 
   const generatePass = async (appointmentId) => {
     try {
-      const res = await axios.post(
+      await axios.post(
         "https://visitor-pass-system-2.onrender.com/api/pass",
         { appointmentId },
         {

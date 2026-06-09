@@ -82,7 +82,7 @@ function Visitor() {
 
   useEffect(() => {
     fetchVisitors();
-  }, []);
+  }, [token]);
 
   return (
     <div>
