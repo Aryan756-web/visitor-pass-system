@@ -33,7 +33,7 @@ function Visitor() {
 
   const fetchVisitors = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/visitors", {
+      const res = await axios.get("https://visitor-pass-system-2.onrender.com/api/visitors", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setVisitors(res.data);
@@ -50,7 +50,7 @@ function Visitor() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/visitors",
+        "https://visitor-pass-system-2.onrender.com/api/visitors",
         { name, email },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -69,7 +69,7 @@ function Visitor() {
     if (!window.confirm("delete this visitor?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/visitors/${id}`, {
+      await axios.delete(`https://visitor-pass-system-2.onrender.com/api/visitors/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
