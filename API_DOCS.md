@@ -1,187 +1,179 @@
-# API Documentation - Visitor Pass System
+# API Documentation
 
-Base URL:
+Base URL
+
 http://localhost:5000/api
 
 ---
 
-## 🔐 Authentication
+## Authentication
 
-### Login
+### Register User
+
+POST /auth/register
+
+Request Body
+
+{
+"name": "Admin User",
+"email": "[admin@test.com](mailto:admin@test.com)",
+"password": "123456",
+"role": "admin"
+}
+
+Response
+
+{
+"message": "User created"
+}
+
+---
+
+### Login User
 
 POST /auth/login
 
-Request Body:
+Request Body
 
 {
-"email": "test@example.com
-",
+"email": "[admin@test.com](mailto:admin@test.com)",
 "password": "123456"
 }
 
-
-Response:
+Response
 
 {
-"token": "jwt_token"
+"token": "jwt_token",
+"user": {
+"id": "user_id",
+"name": "Admin User"
+}
 }
 
-
 ---
 
-## 👤 Visitors
+## Visitors
 
-### Get all visitors
-
-GET /visitors
-
-Headers:
-Authorization: Bearer <token>
-
-Response:
-- List of visitors
-
----
-
-### Add visitor
+### Create Visitor
 
 POST /visitors
 
-Headers:
-Authorization: Bearer <token>
+Headers
 
-Body:
+Authorization: Bearer TOKEN
+
+Request Body
 
 {
-"name": "Soham",
-"email": "soham@example.com
-"
+"name": "Rahul Sharma",
+"email": "[rahul@test.com](mailto:rahul@test.com)",
+"phone": "9876543210"
 }
 
+### Get All Visitors
 
----
+GET /visitors
 
-### Delete visitor
+Headers
+
+Authorization: Bearer TOKEN
+
+### Delete Visitor
 
 DELETE /visitors/:id
 
-Headers:
-Authorization: Bearer <token>
+Headers
+
+Authorization: Bearer TOKEN
 
 ---
 
-## 📅 Appointments
+## Appointments
 
-### Create appointment
+### Create Appointment
 
 POST /appointments
 
-Headers:
-Authorization: Bearer <token>
+Headers
 
-Body:
+Authorization: Bearer TOKEN
+
+Request Body
 
 {
-"visitorId": "visitor_id",
-"date": "2026-04-10T10:00:00.000Z"
+"visitor": "visitor_id",
+"date": "2026-06-10"
 }
 
-
----
-
-### Get all appointments
+### Get Appointments
 
 GET /appointments
 
-Headers:
-Authorization: Bearer <token>
+Headers
 
----
+Authorization: Bearer TOKEN
 
-### Approve appointment
+### Approve Appointment
 
 PUT /appointments/:id/approve
 
-Headers:
-Authorization: Bearer <token>
+Headers
+
+Authorization: Bearer TOKEN
 
 ---
 
-## 🎫 Pass
+## Passes
 
-### Generate pass
+### Generate Pass
 
 POST /pass
 
-Headers:
-Authorization: Bearer <token>
+Headers
 
-Body:
+Authorization: Bearer TOKEN
+
+Request Body
 
 {
 "appointmentId": "appointment_id"
 }
 
-
-Response:
-- Pass object
-- QR code (base64)
-
----
-
-### Get all passes
+### Get Passes
 
 GET /pass
 
-Headers:
-Authorization: Bearer <token>
+Headers
 
----
+Authorization: Bearer TOKEN
 
-### Download pass PDF
+### Download PDF
 
 GET /pass/pdf/:id
 
-Headers:
-Authorization: Bearer <token>
+Headers
 
-Response:
-- PDF file download
+Authorization: Bearer TOKEN
 
----
-
-## 📧 Email
-
-- Triggered when pass is generated
-- Uses Ethereal (test service)
-- Preview URL appears in backend terminal
+Returns PDF file.
 
 ---
 
-## ⚠️ Important Notes
+## Dashboard
 
-- All routes (except login) require JWT token
-- Token must be sent in Authorization header
-- If token expires → 401 error
-- Re-login required
+### Get Dashboard Statistics
 
----
+GET /dashboard/stats
 
-## 🔁 Typical Flow
+Headers
 
-1. Login → get token  
-2. Add visitor  
-3. Create appointment  
-4. Approve appointment  
-5. Generate pass  
-6. Download PDF  
-7. Check email preview  
+Authorization: Bearer TOKEN
 
----
+Response
 
-## 📌 Error Handling
-
-- 400 → Bad request (missing data)
-- 401 → Unauthorized (token issue)
-- 404 → Not found
-- 500 → Server error
+{
+"visitors": 3,
+"appointments": 1,
+"passes": 1,
+"checkins": 0
+}

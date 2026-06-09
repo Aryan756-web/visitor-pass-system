@@ -1,172 +1,163 @@
 # Visitor Pass Management System
 
-This project is a simple full-stack MERN application to manage visitors inside an organization.  
-It allows staff to register visitors, create appointments, approve them, and generate a visitor pass.
+## Project Overview
 
-Once a pass is generated, it includes a QR code and can be downloaded as a PDF.  
-An email notification is also sent (using Ethereal test service).
+Visitor Pass Management System is a MERN Stack application developed to manage visitors, appointments, and digital visitor passes for an organization.
 
----
+The system allows administrators to register visitors, schedule appointments, approve requests, generate QR-based visitor passes, download passes as PDF files, and monitor visitor statistics through a dashboard.
 
-## 🚀 What this project does
+## Features
 
-- Staff can login securely
-- Add and manage visitors
-- Create appointments for visitors
-- Approve or reject appointments
-- Generate passes for approved appointments
-- Each pass includes:
-  - Unique Pass ID
-  - Valid time window
-  - QR Code
-- Pass can be downloaded as PDF
-- Email is sent when pass is generated
-- Dashboard shows appointments with filtering
+### Authentication
 
----
+* User Registration
+* User Login
+* JWT Authentication
 
-## 🛠 Tech Stack
+### Visitor Management
 
-Frontend:
-- React (basic routing and pages)
-- Axios (API calls)
+* Add New Visitor
+* View All Visitors
+* Delete Visitor
+* Export Visitors to CSV
 
-Backend:
-- Node.js
-- Express.js
+### Appointment Management
 
-Database:
-- MongoDB (Mongoose)
+* Create Appointment
+* View Appointments
+* Search Appointments
+* Filter Appointments by Status
+* Approve Appointments
 
-Other libraries:
-- JWT (authentication)
-- PDFKit (PDF generation)
-- QRCode (QR generation)
-- Nodemailer (email)
-- Ethereal (for testing email)
+### Pass Management
 
----
+* Generate Digital Visitor Pass
+* Generate QR Code
+* Download Visitor Pass as PDF
+* Email Notification on Pass Generation
 
-## 🌐 Live Links
+### Dashboard
 
-Frontend:
-https://visitor-pass-frontend-backend.netlify.app/
+* Total Visitors Count
+* Total Appointments Count
+* Total Passes Count
+* Total Check-ins Count
 
-Backend:
-https://visitor-pass-system-e29h.onrender.com/
+## Tech Stack
 
----
+### Frontend
 
-## 📁 Project Structure
-root/
+* React.js
+* Axios
+* React Router DOM
+
+### Backend
+
+* Node.js
+* Express.js
+* JWT Authentication
+* Nodemailer
+* PDFKit
+* QRCode
+
+### Database
+
+* MongoDB Atlas
+* Mongoose
+
+## Folder Structure
+
+project-root/
+
 ├── backend/
+
 │ ├── controllers/
-│ ├── models/
-│ ├── routes/
+
 │ ├── middleware/
-│ └── utils/
+
+│ ├── models/
+
+│ ├── routes/
+
+│ ├── utils/
+
+│ └── server.js
+
 │
+
 ├── frontend/
+
 │ ├── src/
-│ │ ├── pages/
-│ │ └── components/
+
+│ ├── public/
+
+│ └── package.json
+
 │
+
 ├── README.md
+
 └── API_DOCS.md
 
----
+## Installation
 
-## ⚙️ How to run locally
+### Clone Repository
 
-### 1. Clone the repo
+git clone <repository-url>
 
-git clone: https://github.com/Aryan756-web/visitor-pass-system.git
-cd project-folder
+cd visitor-pass-system
 
----
-
-### 2. Setup backend
-
+### Backend Setup
 
 cd backend
+
 npm install
 
+Create .env file:
 
-Create `.env` file:
+MONGO_URI=your_mongodb_connection_string
 
-
-MONGO_URI=your_mongodb_uri
-PORT=5000
 JWT_SECRET=your_secret_key
+
+PORT=5000
 
 Run backend:
 
-npm start
+npm run dev
 
----
-
-### 3. Setup frontend
+### Frontend Setup
 
 cd frontend
+
 npm install
+
 npm start
 
----
+Frontend runs on:
 
-## 🔐 Authentication
+http://localhost:3000
 
-- Login returns a JWT token
-- Token is stored in localStorage
-- All protected routes require this token
+Backend runs on:
 
----
+http://localhost:5000
 
-## 🧪 How to test the flow
+## Environment Variables
 
-1. Login
-2. Add a visitor
-3. Create an appointment
-4. Approve the appointment
-5. Click "Generate Pass"
-6. Download PDF
-7. Check email preview (in terminal → Ethereal link)
+Required variables:
 
----
+MONGO_URI
 
-## 📧 Email functionality
+JWT_SECRET
 
-Email is implemented using **Ethereal (test SMTP service)**.
+PORT
 
-Reason:
-- Gmail blocks automated logins sometimes
-- Ethereal is reliable for testing and demonstration
+## Future Improvements
 
-When a pass is generated:
-- Email is "sent"
-- Preview URL is shown in backend terminal
-- That link opens the email in browser
+* Visitor Photo Upload
+* SMS Notifications
+* Check-In / Check-Out Tracking
+* Advanced Dashboard Reports
 
----
+## Author
 
-## 📸 Screenshots
-- Login page  
-- Add visitor  
-- Appointment creation  
-- Approve button  
-- Generate pass  
-- PDF download  
-- Email preview  
-
----
-
-## ⚠️ Notes
-
-- Token can expire, so login again if needed
-- Email is for demo purpose (not real inbox delivery)
-- Basic UI (focus was on functionality)
-
----
-
-## 👤 Author
-
-Aryan
+Aaryan Karadkar

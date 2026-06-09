@@ -16,6 +16,7 @@ const visitorRoutes = require("./routes/visitorRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const passRoutes = require("./routes/passRoutes");
 const checkRoutes = require("./routes/checkRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const protect = require("./middleware/authMiddleware");
 const authorizeRoles = require("./middleware/roleMiddleware");
@@ -54,6 +55,7 @@ app.use("/api/visitors", visitorRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/pass", passRoutes);
 app.use("/api/check", checkRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // test route
 app.get("/", (req, res) => {

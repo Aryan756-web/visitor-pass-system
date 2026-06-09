@@ -10,6 +10,10 @@ function Navbar() {
 
   return (
     <div style={{ padding: "10px", background: "#eee" }}>
+      <Link to="/dashboard" style={{ marginRight: "10px" }}>
+        Dashboard
+      </Link>
+
       <Link to="/visitors" style={{ marginRight: "10px" }}>
         Visitors
       </Link>

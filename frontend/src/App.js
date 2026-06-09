@@ -1,8 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import Visitor from "./pages/Visitor";
 import Appointment from "./pages/Appointment";
 import Navbar from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -16,6 +22,11 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route
+            path="/dashboard"
+            element={token ? <Dashboard /> : <Navigate to="/login" />}
+          />
+
+          <Route
             path="/visitors"
             element={token ? <Visitor /> : <Navigate to="/login" />}
           />
@@ -27,7 +38,7 @@ function App() {
 
           <Route
             path="/"
-            element={<Navigate to={token ? "/visitors" : "/login"} />}
+            element={<Navigate to={token ? "/dashboard" : "/login"} />}
           />
         </Routes>
       </div>
