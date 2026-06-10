@@ -107,8 +107,7 @@ function Appointment() {
 
       alert("Pass generated");
 
-      // store pass id inside appointment temporarily
-      fetchAppointments();
+      downloadPDF(res.data.pass._id);
     } catch (err) {
       alert("error generating pass");
     }
