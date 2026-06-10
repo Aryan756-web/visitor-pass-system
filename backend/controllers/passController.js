@@ -19,7 +19,8 @@ const generatePass = async (req, res) => {
       return res.status(400).json({ message: "Invalid id" });
     }
 
-    const appointment = await Appointment.findById(appointmentId).populate("visitor");
+    const appointment =
+      await Appointment.findById(appointmentId).populate("visitor");
 
     if (!appointment) {
       return res.status(404).json({ message: "Appointment not found" });
@@ -50,7 +51,7 @@ const generatePass = async (req, res) => {
     console.log("Visitor object:", appointment.visitor);
 
     console.log("About to send email...");
-    await sendEmail(
+    sendEmail(
       appointment.visitor.email,
       "Visitor Pass Generated",
       `Your pass has been created. Pass ID: ${pass._id}`,
