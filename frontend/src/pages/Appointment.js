@@ -97,7 +97,7 @@ function Appointment() {
 
   const generatePass = async (appointmentId) => {
     try {
-      await axios.post(
+      const res = await axios.post(
         "https://visitor-pass-system-2.onrender.com/api/pass",
         { appointmentId },
         {
