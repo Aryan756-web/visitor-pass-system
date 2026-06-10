@@ -43,7 +43,8 @@ function Appointment() {
   useEffect(() => {
     fetchVisitors();
     fetchAppointments();
-  }, [token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const createAppointment = async () => {
     if (!visitorId || !date) {

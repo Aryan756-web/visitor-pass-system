@@ -33,9 +33,12 @@ function Visitor() {
 
   const fetchVisitors = async () => {
     try {
-      const res = await axios.get("https://visitor-pass-system-2.onrender.com/api/visitors", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        "https://visitor-pass-system-2.onrender.com/api/visitors",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       setVisitors(res.data);
     } catch (error) {
       console.log("error");
@@ -69,9 +72,12 @@ function Visitor() {
     if (!window.confirm("delete this visitor?")) return;
 
     try {
-      await axios.delete(`https://visitor-pass-system-2.onrender.com/api/visitors/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `https://visitor-pass-system-2.onrender.com/api/visitors/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
 
       fetchVisitors();
     } catch (error) {
@@ -82,7 +88,8 @@ function Visitor() {
 
   useEffect(() => {
     fetchVisitors();
-  }, [token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

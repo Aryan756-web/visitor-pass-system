@@ -19,7 +19,7 @@ function Dashboard() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setStats(res.data);
@@ -30,7 +30,8 @@ function Dashboard() {
 
   useEffect(() => {
     fetchStats();
-  }, [token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div style={{ padding: "20px" }}>
