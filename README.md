@@ -2,17 +2,41 @@
 
 ## Project Overview
 
-Visitor Pass Management System is a MERN Stack application developed to manage visitors, appointments, and digital visitor passes for an organization.
+Visitor Pass Management System is a MERN Stack application designed to manage visitors, appointments, and digital visitor passes within an organization.
 
-The system allows administrators to register visitors, schedule appointments, approve requests, generate QR-based visitor passes, download passes as PDF files, and monitor visitor statistics through a dashboard.
+The system allows administrators to add visitors, schedule appointments, approve requests, generate QR-based visitor passes, send email notifications, download passes as PDF files, and monitor visitor activity through a dashboard.
+
+---
+
+## Live Demo
+
+Frontend:
+[(https://visitor-pass-system-six.vercel.app/)]
+
+Backend:
+https://visitor-pass-system-2.onrender.com
+
+---
+
+## Demo Login Credentials
+
+Use the following account to access the application:
+
+Email: [admin@test.com](mailto:admin@test.com)
+
+Password: 123456
+
+Note: This application is designed as an admin/staff dashboard. Visitors are managed by the administrator and do not require separate registration.
+
+---
 
 ## Features
 
 ### Authentication
 
-* User Registration
 * User Login
 * JWT Authentication
+* Protected Routes
 
 ### Visitor Management
 
@@ -33,8 +57,8 @@ The system allows administrators to register visitors, schedule appointments, ap
 
 * Generate Digital Visitor Pass
 * Generate QR Code
-* Download Visitor Pass as PDF
 * Email Notification on Pass Generation
+* Download Visitor Pass as PDF
 
 ### Dashboard
 
@@ -42,6 +66,8 @@ The system allows administrators to register visitors, schedule appointments, ap
 * Total Appointments Count
 * Total Passes Count
 * Total Check-ins Count
+
+---
 
 ## Tech Stack
 
@@ -65,9 +91,11 @@ The system allows administrators to register visitors, schedule appointments, ap
 * MongoDB Atlas
 * Mongoose
 
-## Folder Structure
+---
 
-project-root/
+## Project Structure
+
+visitor-pass-system/
 
 ├── backend/
 
@@ -87,9 +115,9 @@ project-root/
 
 ├── frontend/
 
-│ ├── src/
-
 │ ├── public/
+
+│ ├── src/
 
 │ └── package.json
 
@@ -99,13 +127,17 @@ project-root/
 
 └── API_DOCS.md
 
-## Installation
+---
+
+## Installation and Setup
 
 ### Clone Repository
 
-git clone <repository-url>
+git clone https://github.com/Aryan756-web/visitor-pass-system.git
 
 cd visitor-pass-system
+
+---
 
 ### Backend Setup
 
@@ -113,7 +145,7 @@ cd backend
 
 npm install
 
-Create .env file:
+Create a .env file and add:
 
 MONGO_URI=your_mongodb_connection_string
 
@@ -121,9 +153,11 @@ JWT_SECRET=your_secret_key
 
 PORT=5000
 
-Run backend:
+Run Backend:
 
 npm run dev
+
+---
 
 ### Frontend Setup
 
@@ -141,15 +175,39 @@ Backend runs on:
 
 http://localhost:5000
 
+---
+
 ## Environment Variables
 
-Required variables:
+Required Variables:
 
 MONGO_URI
 
 JWT_SECRET
 
 PORT
+
+---
+
+## API Documentation
+
+Detailed API documentation is available in:
+
+API_DOCS.md
+
+---
+
+## Screenshots
+
+Add screenshots of:
+
+* Login Page
+* Dashboard
+* Visitor Management
+* Appointment Management
+* Generated PDF Pass
+
+---
 
 ## Future Improvements
 
@@ -158,6 +216,10 @@ PORT
 * Check-In / Check-Out Tracking
 * Advanced Dashboard Reports
 
+---
+
 ## Author
 
 Aaryan Karadkar
+
+MERN Stack Assignment Project

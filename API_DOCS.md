@@ -1,33 +1,18 @@
 # API Documentation
 
-Base URL
+## Base URLs
+
+Local Development:
 
 http://localhost:5000/api
+
+Production:
+
+https://visitor-pass-system-2.onrender.com/api
 
 ---
 
 ## Authentication
-
-### Register User
-
-POST /auth/register
-
-Request Body
-
-{
-"name": "Admin User",
-"email": "[admin@test.com](mailto:admin@test.com)",
-"password": "123456",
-"role": "admin"
-}
-
-Response
-
-{
-"message": "User created"
-}
-
----
 
 ### Login User
 
@@ -70,6 +55,16 @@ Request Body
 "phone": "9876543210"
 }
 
+Response
+
+{
+"_id": "visitor_id",
+"name": "Rahul Sharma",
+"email": "[rahul@test.com](mailto:rahul@test.com)"
+}
+
+---
+
 ### Get All Visitors
 
 GET /visitors
@@ -77,6 +72,8 @@ GET /visitors
 Headers
 
 Authorization: Bearer TOKEN
+
+---
 
 ### Delete Visitor
 
@@ -105,6 +102,8 @@ Request Body
 "date": "2026-06-10"
 }
 
+---
+
 ### Get Appointments
 
 GET /appointments
@@ -112,6 +111,8 @@ GET /appointments
 Headers
 
 Authorization: Bearer TOKEN
+
+---
 
 ### Approve Appointment
 
@@ -123,7 +124,7 @@ Authorization: Bearer TOKEN
 
 ---
 
-## Passes
+## Pass Management
 
 ### Generate Pass
 
@@ -139,7 +140,18 @@ Request Body
 "appointmentId": "appointment_id"
 }
 
-### Get Passes
+Response
+
+{
+"message": "Pass created",
+"pass": {
+"_id": "pass_id"
+}
+}
+
+---
+
+### Get All Passes
 
 GET /pass
 
@@ -147,7 +159,9 @@ Headers
 
 Authorization: Bearer TOKEN
 
-### Download PDF
+---
+
+### Download Pass PDF
 
 GET /pass/pdf/:id
 
@@ -155,7 +169,9 @@ Headers
 
 Authorization: Bearer TOKEN
 
-Returns PDF file.
+Description
+
+Downloads the generated visitor pass as a PDF file containing visitor details and QR code.
 
 ---
 
@@ -173,7 +189,29 @@ Response
 
 {
 "visitors": 3,
-"appointments": 1,
-"passes": 1,
+"appointments": 2,
+"passes": 2,
 "checkins": 0
 }
+
+---
+
+## Authentication Notes
+
+All protected routes require:
+
+Authorization: Bearer YOUR_JWT_TOKEN
+
+The JWT token is returned after a successful login request.
+
+---
+
+## Test Credentials
+
+Email:
+
+[admin@test.com](mailto:admin@test.com)
+
+Password:
+
+123456
